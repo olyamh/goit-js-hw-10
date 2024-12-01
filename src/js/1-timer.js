@@ -9,6 +9,7 @@ let userSelectedDate = null;
 let interval = 0;
 const startBtn = document.querySelector('button[data-start]');
 const inputTime = document.querySelector('#datetime-picker')
+startBtn.disabled = true;
 
 const options = {
   enableTime: true,
