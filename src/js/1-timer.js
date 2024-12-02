@@ -4,6 +4,7 @@ import "flatpickr/dist/flatpickr.min.css";
 
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
+import errorImage from '../img/bi_x-octagon.svg';
 
 let userSelectedDate = null;
 let interval = 0;
@@ -21,6 +22,12 @@ const options = {
 
     if (selectedDate <= new Date){
       iziToast.show({
+        
+        messageColor: 'white',
+        backgroundColor: 'red',
+        position: 'topRight',
+        iconUrl: `${errorImage}`,
+        close: false,
         title: '',
         message: 'Please choose a date in the future'
            });

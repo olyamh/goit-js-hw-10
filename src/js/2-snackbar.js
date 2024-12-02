@@ -1,6 +1,7 @@
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
+
 const form = document.querySelector('.form');
 const inputDelay = document.querySelector('input[name="delay"]');
 form.addEventListener('submit', makePromise);
@@ -22,6 +23,10 @@ function makePromise(event){
                if (radioBtn === "fulfilled"){
                 resolve(
                      iziToast.show({
+                        messageColor: 'white',
+                        backgroundColor: 'green',
+                        position: 'topRight',
+                        close: false,
                             title: '',
                             message: `✅ Fulfilled promise in ${delay}ms`
                                })
@@ -30,6 +35,10 @@ function makePromise(event){
                 reject(
                    
                 iziToast.show({
+                    messageColor: 'white',
+                    backgroundColor: 'red',
+                    position: 'topRight',
+                    close: false,
                     title: '',
                     message: `❌ Rejected promise in ${delay}ms`
                        })); 

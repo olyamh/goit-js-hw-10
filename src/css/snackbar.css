@@ -1,0 +1,39 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    max-width: 50%;
+    column-gap: 24px;
+}
+
+input[type="number"]{
+    display: flex;
+    flex-direction: column;
+    max-width: inherit;
+    margin-bottom: 10px;
+}
+label.fieldset-label{
+    display: flex;
+    flex-direction: row;
+    
+    
+}
+input[type="radio"]{
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+stroke-width: 1px;
+stroke: #808080;
+margin-bottom: 20px;
+font-weight: 400;
+font-size: 16px;
+line-height: 150%;
+color: #2e2f42;
+
+}
+
+button[type="submit"]{
+    border-radius: 8px;
+    padding: 8px 16px;
+    width: 360px;
+    height: 40px;
+}
