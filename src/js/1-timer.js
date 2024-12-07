@@ -7,7 +7,7 @@ import "izitoast/dist/css/iziToast.min.css";
 import errorImage from '../img/bi_x-octagon.svg';
 
 let userSelectedDate = null;
-let interval = 0;
+// let interval = 0;
 const startBtn = document.querySelector('button[data-start]');
 const inputTime = document.querySelector('#datetime-picker')
 startBtn.disabled = true;
@@ -34,34 +34,47 @@ const options = {
     startBtn.disabled = true;
     }else{
       userSelectedDate = selectedDate;
-      startBtn.disabled = false;
+            startBtn.disabled = false;
     }
+    console.log(userSelectedDate)
   },
 };
 
-flatpickr('#datetime-picker', options);
 
+flatpickr('#datetime-picker', options);
 startBtn.addEventListener('click', startCountdown);
+
+
+
+function startCountdown(event) {
+  event.preventDefault();
+  setDeltaTime();
+ 
+ setInterval(() => {
+    setDeltaTime();
+  }, 1000);
+}
+
+
+
+
+function setDeltaTime() {
+  const deltaTime = Date.parse(userSelectedDate) - Date.now();
+  if (deltaTime<=0){
+    startBtn.disabled = true;
+    inputTime.disabled = false;
+      return;
+  }
+  const { days, hours, minutes, seconds } = convertMs(deltaTime);
+  document.querySelector('[data-days]').textContent = addLeadingZero(days);
+  document.querySelector('[data-hours]').textContent = addLeadingZero(hours);
+  document.querySelector('[data-minutes]').textContent = addLeadingZero(minutes);
+  document.querySelector('[data-seconds]').textContent = addLeadingZero(seconds);
+ }
 
 function addLeadingZero(value) {
   return String(value).padStart(2, '0');
 } 
-
-function startCountdown() {
-  if (userSelectedDate) {
-    const { days, hours, minutes, seconds } = convertMs(userSelectedDate - new Date());
-        (days, hours, minutes, seconds);
-    startBtn.disabled = true;
-
-    interval = setInterval(() => {
-      const { days, hours, minutes, seconds } = convertMs(userSelectedDate - new Date());
-        updateTimer(days, hours, minutes, seconds);
-    }, 1000)
-    inputTime.disabled = true;
-  }
-
-}
-
 
 function convertMs(ms) {
   const second = 1000;
@@ -75,18 +88,5 @@ function convertMs(ms) {
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
   
   return { days, hours, minutes, seconds };
-}
-
-function updateTimer(days, hours, minutes, seconds) {
-  document.querySelector('[data-days]').textContent = addLeadingZero(days);
-  document.querySelector('[data-hours]').textContent = addLeadingZero(hours);
-  document.querySelector('[data-minutes]').textContent = addLeadingZero(minutes);
-  document.querySelector('[data-seconds]').textContent = addLeadingZero(seconds);
-
-  if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
-    clearInterval(interval);
-    inputTime.disabled = false;
-  }
-  
 }
 
